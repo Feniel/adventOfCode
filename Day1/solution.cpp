@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -15,9 +16,9 @@ void inputToVektor(vector <int> &input){
     {
         int tmp = 0;
         try{
-            tmp << stoi( value ); 
+            tmp = stoi( value ); 
         }
-        catch{
+        catch(const exception &e){
             cout << "Bad input" << "\n";
         }
         input.push_back(tmp);
@@ -26,13 +27,27 @@ void inputToVektor(vector <int> &input){
     return;  
 }
 
+void solution(vector <int> &input){
+    int tmp = 0;
+
+    for (int i = 0; i < input.size(); i++){
+        
+        for (int g = i+1; g < input.size(); g++){
+            
+            if(input[i]+input[g] == 2020){
+                tmp = input[i] * input[g];
+                cout << tmp << "\n";
+                return;
+            } 
+        }
+    }
+}
+
 int main(){
     vector <int> input;
-    int output = 0;
 
     inputToVektor(input);
+    solution(input);
 
-    //printf (output);
-    //return 0;
-    return vector[2];
+    return 0;
 }
