@@ -63,7 +63,7 @@ void solutionPart2(vector <string> input){
     string tmpString;
     string tmpNum;
 
-    for (int lineCounter = 0; lineCounter < 4; lineCounter++){
+    for (int lineCounter = 0; lineCounter < 26; lineCounter++){
         tmp.push_back(input[lineCounter]);
         if(input[lineCounter].empty()){
             workSize = tmp.size() - 1;           
@@ -74,37 +74,43 @@ void solutionPart2(vector <string> input){
                     if(tmp[i].find(keywords[j]) != string::npos){
                         tmpString = tmp[i].substr( tmp[i].find(keywords[j]) , tmp[i].find(" ",tmp[i].find(keywords[j])) );
 
+                        cout << "line " << lineCounter << " " << tmpString << "\n";
                         if (tmpString.find("byr") != string::npos){
                             tmpNum = tmpString.substr( tmpString.find(":") + 1 , tmpString.size() - tmpString.find(":") );
+                            cout << tmpNum << "\n";
                             if(stoi (tmpNum) >= 1920 & stoi (tmpNum) <= 2002){
-                                counter++;
+                                keywordCounter++;
                             }
                         }else if(tmpString.find("iyr") != string::npos){
                             tmpNum = tmpString.substr( tmpString.find(":") + 1 , tmpString.size() - tmpString.find(":") );
+                            cout << tmpNum << "\n";
                             if(stoi (tmpNum) >= 2010 & stoi (tmpNum) <= 2020){
-                                counter++;
+                                keywordCounter++;
                             }
                         }else if(tmpString.find("eyr") != string::npos){
                             tmpNum = tmpString.substr( tmpString.find(":") + 1 , tmpString.size() - tmpString.find(":") );
+                            cout << tmpNum << "\n";
                             if(stoi (tmpNum) >= 2020 & stoi (tmpNum) <= 2030){
-                                counter++;
+                                keywordCounter++;
                             }
                         }else if(tmpString.find("hgt") != string::npos){
+                            cout << tmpString << "\n";
                             if(tmpString.find("cm") != string::npos){
                                 tmpNum = tmpString.substr( tmpString.find(":") + 1 , tmpString.size() - tmpString.find(":") );
                                 tmpNum = tmpNum.substr(0,tmpNum.size()-2);
                                 if(stoi (tmpNum) >= 150 & stoi (tmpNum) <= 193){
-                                    counter++;
+                                    keywordCounter++;
                                 }
                             }else{
                                 tmpNum = tmpString.substr( tmpString.find(":") + 1 , tmpString.size() - tmpString.find(":") );
                                 tmpNum = tmpNum.substr(0,tmpNum.size()-2);
                                 if(stoi (tmpNum) >= 59 & stoi (tmpNum) <= 76){
-                                    counter++;
+                                    keywordCounter++;
                                 }
                             }
                         }else if(tmpString.find("hcl") != string::npos){
                             vector<string> badLetters{"g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
+                            cout << tmpString << "\n";
                             if(tmpString.substr(5,1).compare("#")){
                                 if( tmpString.substr(5,tmpString.size()-5).size() == 6){
                                     bool checkInt = true;
@@ -114,14 +120,26 @@ void solutionPart2(vector <string> input){
                                         }
                                     }
                                     if(!checkInt){
-                                        counter++;
+                                        keywordCounter++;
                                     }
                                 }
                             }
                             //a # followed by exactly six characters 0-9 or a-f
                         }else if(tmpString.find("ecl") != string::npos){
+                            vector<string> eyec{"amb", "blu", "brn", "gry", "grn", "hzl", "oth"};
+                            cout << tmpString << "\n";
+                            for (int y = 0; y < eyec.size(); y++){
+                                if(tmpString.find(eyec[y]) != string::npos){
+                                    keywordCounter++;
+                                }
+                            }
                             //exactly one of: amb blu brn gry grn hzl oth.
                         }else if(tmpString.find("pid") != string::npos){
+                            string workTmp = tmpString.substr(tmpString.find(":")+1);
+                            cout << workTmp << "\n";
+                            if(workTmp.size() == 9){
+                                keywordCounter++;
+                            }
                             //a nine-digit number, including leading zeroes.
                         }                                                               
                     }
