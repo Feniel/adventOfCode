@@ -35,7 +35,6 @@ void solutionPart1(vector <string> input, vector <int> &seatCodes){
     int seatCode;
 
     for (int i = 0; i < input.size(); i++){
-    //for (int i = 0; i < 1; i++){
         lineString = input[i];
         left = 0;
         right = 127;
